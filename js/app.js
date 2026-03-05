@@ -62,6 +62,28 @@ const App = (() => {
       }
     });
 
+    // 書き出しボタン
+    document.getElementById('export-btn').addEventListener('click', () => {
+      Storage.exportAllStrategies();
+    });
+
+    // 取り込みボタン
+    const importFileInput = document.getElementById('import-file-input');
+    document.getElementById('import-btn').addEventListener('click', () => {
+      importFileInput.click();
+    });
+    importFileInput.addEventListener('change', async (e) => {
+      const file = e.target.files[0];
+      if (!file) return;
+      try {
+        const count = await Storage.importStrategies(file);
+        alert(`${count}件の戦略を取り込みました`);
+      } catch (err) {
+        alert(err.message);
+      }
+      importFileInput.value = '';
+    });
+
     // drawing canvasは常にポインターイベント有効（フリーハンド描画用）
     document.getElementById('drawing-canvas').style.pointerEvents = 'auto';
   }

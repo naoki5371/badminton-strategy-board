@@ -331,6 +331,12 @@ html, body {
   background: #0f3460;
 }
 
+.save-separator {
+  width: 1px;
+  height: 24px;
+  background: #0f3460;
+}
+
 /* ダイアログ */
 .dialog-overlay {
   position: fixed;
