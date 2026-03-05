@@ -6,6 +6,7 @@ const Players = (() => {
   let dragTarget = null;
   let dragOffset = { x: 0, y: 0 };
   let onMoveCallback = null;
+  let onDragStartCallback = null;
 
   // モード別の選手配置（コート座標系）
   const INITIAL_POSITIONS = {
@@ -64,6 +65,7 @@ const Players = (() => {
     const player = findPlayerByElement(e.currentTarget);
     if (!player) return;
 
+    if (onDragStartCallback) onDragStartCallback();
     dragTarget = player;
     const pos = Court.courtToCanvas(player.courtX, player.courtY);
     dragOffset.x = touch.clientX - pos.x;
@@ -91,6 +93,7 @@ const Players = (() => {
     const player = findPlayerByElement(e.currentTarget);
     if (!player) return;
 
+    if (onDragStartCallback) onDragStartCallback();
     dragTarget = player;
     const pos = Court.courtToCanvas(player.courtX, player.courtY);
     dragOffset.x = e.clientX - pos.x;
@@ -160,6 +163,10 @@ const Players = (() => {
     onMoveCallback = callback;
   }
 
+  function onDragStart(callback) {
+    onDragStartCallback = callback;
+  }
+
   function getMode() {
     return currentMode;
   }
@@ -170,6 +177,7 @@ const Players = (() => {
     getState,
     setState,
     onMove,
+    onDragStart,
     getMode,
   };
 })();

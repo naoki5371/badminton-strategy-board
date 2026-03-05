@@ -1,6 +1,16 @@
 // app.js - メインアプリケーション
 const App = (() => {
   let currentMode = 'singles';
+  let history = [];
+  const MAX_HISTORY = 50;
+
+  function saveSnapshot() {
+    history.push({
+      players: Players.getState(),
+      drawings: Drawing.getState(),
+    });
+    if (history.length > MAX_HISTORY) history.shift();
+  }
 
   function init() {
     // 各モジュール初期化
@@ -8,6 +18,10 @@ const App = (() => {
     Players.init(currentMode);
     Drawing.init();
     Recorder.init();
+
+    // 統一履歴: 選手ドラッグ開始時・描画完了前にスナップショット保存
+    Players.onDragStart(saveSnapshot);
+    Drawing.onBeforeStroke(saveSnapshot);
 
     // ウィンドウリサイズ対応
     window.addEventListener('resize', () => {
@@ -29,17 +43,24 @@ const App = (() => {
         Players.init(mode);
         Drawing.clear();
         Recorder.reset();
+        history = [];
       });
     });
 
-    // 元に戻す
+    // 元に戻す（選手移動・描画の両方に対応）
     document.getElementById('undo-btn').addEventListener('click', () => {
-      Drawing.undo();
+      if (history.length > 0) {
+        const snapshot = history.pop();
+        Players.setState(snapshot.players);
+        Drawing.setState(snapshot.drawings);
+      }
     });
 
-    // 描画クリア
+    // クリア（選手を初期位置に戻し、描画も全消去）
     document.getElementById('clear-drawing-btn').addEventListener('click', () => {
+      saveSnapshot();
       Drawing.clear();
+      Players.init(currentMode);
     });
 
     // 保存ボタン
@@ -188,6 +209,7 @@ const App = (() => {
     Drawing.clear();
     Players.init(currentMode);
     Recorder.reset();
+    history = [];
   }
 
   function getModeLabel(mode) {

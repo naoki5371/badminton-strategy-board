@@ -6,6 +6,7 @@ const Drawing = (() => {
   let drawings = []; // 描画履歴
   let isDrawing = false;
   let currentPath = [];
+  let onBeforeStrokeCallback = null;
 
   const STROKE_COLOR = '#111111';
   const STROKE_WIDTH = 3;
@@ -77,6 +78,7 @@ const Drawing = (() => {
     isDrawing = false;
 
     if (currentPath.length > 1) {
+      if (onBeforeStrokeCallback) onBeforeStrokeCallback();
       drawings.push({
         type: 'freehand',
         points: [...currentPath],
@@ -131,6 +133,10 @@ const Drawing = (() => {
     redraw();
   }
 
+  function onBeforeStroke(callback) {
+    onBeforeStrokeCallback = callback;
+  }
+
   return {
     init,
     redraw,
@@ -138,5 +144,6 @@ const Drawing = (() => {
     clear,
     getState,
     setState,
+    onBeforeStroke,
   };
 })();
