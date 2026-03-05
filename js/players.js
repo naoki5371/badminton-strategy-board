@@ -59,7 +59,6 @@ const Players = (() => {
   }
 
   function onTouchStart(e) {
-    if (App.getCurrentTool() !== 'move') return;
     e.preventDefault();
     const touch = e.touches[0];
     const player = findPlayerByElement(e.currentTarget);
@@ -88,7 +87,6 @@ const Players = (() => {
   }
 
   function onMouseDown(e) {
-    if (App.getCurrentTool() !== 'move') return;
     e.preventDefault();
     const player = findPlayerByElement(e.currentTarget);
     if (!player) return;

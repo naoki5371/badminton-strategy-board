@@ -209,6 +209,11 @@ html, body {
   border-color: #4a90d9;
 }
 
+.tool-btn .tool-label {
+  font-size: 11px;
+  margin-left: 4px;
+}
+
 .tool-separator {
   width: 1px;
   height: 30px;

@@ -24,39 +24,18 @@
     <canvas id="court-canvas"></canvas>
     <canvas id="drawing-canvas"></canvas>
     <div id="players-layer"></div>
-    <div id="text-input-overlay" class="hidden">
-      <textarea id="text-input-field" placeholder="テキストを入力"></textarea>
-      <div id="text-input-actions">
-        <button id="text-confirm-btn">確定</button>
-        <button id="text-cancel-btn">キャンセル</button>
-      </div>
-    </div>
   </main>
 
   <!-- ツールバー -->
   <div id="toolbar">
     <div id="tool-buttons">
-      <button class="tool-btn active" data-tool="move" title="選手を移動">
-        <svg viewBox="0 0 24 24" width="24" height="24"><path d="M13 6v5h5V7.75L22.25 12 18 16.25V13h-5v5h3.25L12 22.25 7.75 18H11v-5H6v3.25L1.75 12 6 7.75V11h5V6H7.75L12 1.75 16.25 6H13z" fill="currentColor"/></svg>
-      </button>
-      <button class="tool-btn" data-tool="shuttle" title="シャトル軌道">
-        <svg viewBox="0 0 24 24" width="24" height="24"><circle cx="4" cy="4" r="3" fill="currentColor"/><line x1="4" y1="4" x2="20" y2="20" stroke="currentColor" stroke-width="2" stroke-dasharray="4,2"/><polygon points="20,20 15,19 19,15" fill="currentColor"/></svg>
-      </button>
-      <button class="tool-btn" data-tool="freehand" title="フリーハンド">
-        <svg viewBox="0 0 24 24" width="24" height="24"><path d="M3 17.25V21h3.75L17.81 9.94l-3.75-3.75L3 17.25zM20.71 7.04a1 1 0 000-1.41l-2.34-2.34a1 1 0 00-1.41 0l-1.83 1.83 3.75 3.75 1.83-1.83z" fill="currentColor"/></svg>
-      </button>
-      <button class="tool-btn" data-tool="arrow" title="矢印">
-        <svg viewBox="0 0 24 24" width="24" height="24"><line x1="4" y1="20" x2="18" y2="6" stroke="currentColor" stroke-width="2.5"/><polygon points="20,4 13,5 19,11" fill="currentColor"/></svg>
-      </button>
-      <button class="tool-btn" data-tool="text" title="テキスト">
-        <svg viewBox="0 0 24 24" width="24" height="24"><text x="4" y="18" font-size="16" font-weight="bold" fill="currentColor">T</text></svg>
-      </button>
-      <div class="tool-separator"></div>
       <button class="tool-btn" id="undo-btn" title="元に戻す">
         <svg viewBox="0 0 24 24" width="24" height="24"><path d="M12.5 8c-2.65 0-5.05 1.04-6.83 2.73L2 7v9h9l-3.62-3.62A7.98 7.98 0 0112.5 10c3.26 0 6.05 1.95 7.29 4.75l1.89-.75A9.98 9.98 0 0012.5 8z" fill="currentColor"/></svg>
+        <span class="tool-label">戻す</span>
       </button>
       <button class="tool-btn" id="clear-drawing-btn" title="描画をクリア">
         <svg viewBox="0 0 24 24" width="24" height="24"><path d="M6 19c0 1.1.9 2 2 2h8c1.1 0 2-.9 2-2V7H6v12zM19 4h-3.5l-1-1h-5l-1 1H5v2h14V4z" fill="currentColor"/></svg>
+        <span class="tool-label">クリア</span>
       </button>
     </div>
   </div>

@@ -1,6 +1,5 @@
 // app.js - メインアプリケーション
 const App = (() => {
-  let currentTool = 'move';
   let currentMode = 'singles';
 
   function init() {
@@ -30,24 +29,6 @@ const App = (() => {
         Players.init(mode);
         Drawing.clear();
         Recorder.reset();
-      });
-    });
-
-    // ツール切り替え
-    document.querySelectorAll('.tool-btn[data-tool]').forEach(btn => {
-      btn.addEventListener('click', () => {
-        const tool = btn.dataset.tool;
-        document.querySelector('.tool-btn.active').classList.remove('active');
-        btn.classList.add('active');
-        currentTool = tool;
-
-        // ツールに応じてdrawing canvasのポインターイベントを切り替え
-        const drawingCanvas = document.getElementById('drawing-canvas');
-        if (tool === 'move') {
-          drawingCanvas.style.pointerEvents = 'none';
-        } else {
-          drawingCanvas.style.pointerEvents = 'auto';
-        }
       });
     });
 
@@ -81,12 +62,8 @@ const App = (() => {
       }
     });
 
-    // drawing canvasは初期状態ではポインターイベント無効（moveモード）
-    document.getElementById('drawing-canvas').style.pointerEvents = 'none';
-  }
-
-  function getCurrentTool() {
-    return currentTool;
+    // drawing canvasは常にポインターイベント有効（フリーハンド描画用）
+    document.getElementById('drawing-canvas').style.pointerEvents = 'auto';
   }
 
   function showSaveDialog() {
@@ -208,7 +185,6 @@ const App = (() => {
 
   return {
     init,
-    getCurrentTool,
   };
 })();
 
